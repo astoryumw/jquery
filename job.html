@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <form action="#myform">
+            First Name: <input type="text" id="fname"><br>
+            Last Name: <input type="text" id="lname"><br><br>
+            <input type="submit" id="subm" >
+        </form>
+        <p id="demo1"></p>
+        <p id="demo2"></p>
+
+        <script>
+            $(document).ready(function(){
+                $('#subm').click(function(){
+                    var fname = $('#fname').val();
+                    var lname = $('#lname').val();
+                    $('#demo1').append(fname);
+                    $('#demo2').append(lname);
+                    // $.getJSON()
+                    $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify({'First Name: ': fname, 'Last Name: ': lname}),
+                        url: 'http://localhost:3000/endpoint',
+                        success: function(data) {
+                            console.log(JSON.stringify(data));
+                        }
+                    })
+                    // function(data,status){
+                    //     alert("Data: " + data + "\nStatus: " + status);
+                    // }
+                })
+            })
+        </script>
+    </body>
+</html>
